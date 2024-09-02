@@ -10,9 +10,14 @@ const createTask = (task) => {
 
     const { title } = task;
 
-    const createTask = await connection.execute(`INSERT INTO tasks (title, status, created_at) Values(?, ?, ?)`,[1, 2, 3]);
-}
+    const dateUTC = new Date(Date.now()).toUTCString();
 
+    const query = `INSERT INTO tasks (title, status, created_at) VALUES (?, ?, ?)`;
+
+    const createTask =  connection.execute(query, [title, 'pendente', new Date()]);
+
+
+}
 module.exports = {
     getAll
 }
