@@ -1,33 +1,25 @@
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home/home'; 
-import EditTask from './pages/Edita/edit'; 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home/home';
+import CreateTask from './pages/Novastask/newtask';
+import Menu from './components/Menu/menu'; 
 import './App.css';
 import './pages/Home/home.css';
-
+import EditTaskModal from './components/Modal/modaledit/Modaledit';
 
 const App: React.FC = () => {
   return (
     <Router>
       <div className="app">
         <header className="header">
-          <h1>Task Manager</h1>
+          <Menu /> 
         </header>
         <div className="main-content">
-          <div className="menu">
-            <h2>Menu</h2>
-            <ul>
-              <li><Link to="/home">Tasks</Link></li> {/* Usando Link para navegação */}
-              <li><Link to="/edit/:id">Editar</Link></li> {/* Corrigido com Link */}
-              <li><Link to="/about">Sobre</Link></li> {/* Outra rota, se houver */}
-            </ul>
-          </div>
           <main>
             <Routes>
               <Route path="/home" element={<Home />} />
-              <Route path="/edit/:id" element={<EditTask />} /> {/* Rota com parâmetro dinâmico */}
-              {/* Adicione outras rotas conforme necessário */}
+              <Route path="/create-task" element={<CreateTask />} />
+              <Route path="*" element={<div>Page Not Found</div>} />
             </Routes>
           </main>
         </div>

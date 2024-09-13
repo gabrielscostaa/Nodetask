@@ -1,0 +1,65 @@
+.create-task-container {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100%; /* Ajusta a largura do container */
+  max-width: 600px; /* Limita a largura máxima do conteúdo */
+  margin: auto; /* Centraliza o container */
+}
+
+.p-field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input, .p-dropdown, .p-calendar, .p-inputtextarea {
+  width: 100%; /* Garante que os campos ocupem toda a largura disponível */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.p-button {
+  width: auto; /* Ajusta a largura do botão para auto */
+  padding: 10px 20px;
+  display: block; /* Faz o botão aparecer em uma nova linha */
+  margin-top: 10px; /* Adiciona espaço acima do botão */
+}.create-task-container {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100%; /* Ajusta a largura do container */
+  max-width: 600px; /* Limita a largura máxima do conteúdo */
+  margin: auto; /* Centraliza o container */
+}
+
+.p-field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input, .p-dropdown, .p-calendar, .p-inputtextarea {
+  width: 100%; /* Garante que os campos ocupem toda a largura disponível */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.p-button {
+  width: auto; /* Ajusta a largura do botão para auto */
+  padding: 10px 20px;
+  display: block; /* Faz o botão aparecer em uma nova linha */
+  margin-top: 10px; /* Adiciona espaço acima do botão */
+}

@@ -1,65 +1,10 @@
-/* Estilos gerais */
-.app {
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.header {
-  background-color: #567cb1;
-  color: #fff;
-  padding: 1rem;
+.menubar-right {
+    position: fixed;    
+    left: 0;  
+    width: 200px;         
+    height: 100vh;     
+    z-index: 1000;      
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
+  }
 
-.main-content {
-  display: flex;
-  margin-top: 4rem; /* Para compensar o cabeçalho fixo */
-  flex: 1;
-  margin-left: 120px; /* Espaço para o menu fixo */
-}
 
-.menu {
-  background-color: #567cb1;
-  color: #ecf0f1;
-  padding: 1rem;
-  width: 120px; 
-  height: calc(100vh - 4rem); 
-  position: fixed;
-  top: 10rem;
-  left: 0;
-  overflow-y: auto;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
-}
-
-.menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu li {
-  margin: 1rem 0; 
-}
-
-.menu a {
-  color: #ecf0f1;
-  text-decoration: none;
-  font-size: 1rem; 
-  display: block;
-  padding: 0.75rem; 
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s; 
-}
-
-.menu a:hover {
-  background-color: #4a6ea9; 
-  color: #ffffff; 
-}

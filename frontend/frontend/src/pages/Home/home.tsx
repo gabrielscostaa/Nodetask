@@ -1,3 +1,4 @@
+// src/pages/Home/home.tsx
 import React, { useState, useEffect } from 'react';
 import './home.css';
 import { DataTable } from 'primereact/datatable';
@@ -6,6 +7,11 @@ import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import Menu from '../../components/Menu/menu';
+import '../../components/Menu/menu.css';
+import { Modal } from '../../components/Modal/modal'; // Ajuste o caminho conforme necessário
+import { useNavigate } from 'react-router-dom';
+import EditTaskModal from '@components/Modal/modaledit/Modaledit';
 
 interface Task {
   id: number;
@@ -13,16 +19,20 @@ interface Task {
   status: string;
   description: string;
   dueDate: string;
-}
+  subtasks: { title: string; completed: boolean }[]; 
 
-interface ApiResponse {
-  tasks: Task[];
 }
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [currentTask, setCurrentTask] = useState(null);
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [currentTaskId, setCurrentTaskId] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3333/tasks')
@@ -32,19 +42,15 @@ const Home: React.FC = () => {
         }
         return response.json();
       })
-      .then((data: ApiResponse) => {
-        console.log('Data fetched:', data); // Adicione este log
-        if (Array.isArray(data.tasks)) {
-          setTasks(data.tasks);
-        } else {
-          console.error('Expected an array of tasks but got:', data);
-        }
+      .then(data => {
+        setTasks(data.tasks);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching tasks:', error);
-        setError(error.message);
-      })
-      .finally(() => setLoading(false));
+        setError('Failed to load tasks');
+        setLoading(false);
+      });
   }, []);
 
   const header = (
@@ -59,40 +65,60 @@ const Home: React.FC = () => {
     </div>
   );
 
+
+  const openModal = (task: Task) => {
+    console.log(task); 
+    setSelectedTask(task);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   const actionTemplate = (rowData: Task) => {
     return (
-      <div>
-        <button className="p-button p-button-info p-button-sm">Edit</button>
-        <button className="p-button p-button-danger p-button-sm">Delete</button>
+      <div className="button-row">
+        <button className="p-button p-button-info p-button-sm" onClick={() => openModal(rowData)}>View</button>
+        <button className="p-button p-button-warning p-button-sm" onClick={() => handleEditTask(rowData.id)}>Edit</button>
       </div>
     );
+  };
+
+  const handleEditTask = (taskId) => {
+    setCurrentTaskId(taskId);
+    setEditModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setEditModalVisible(false);
   };
 
   return (
     <PrimeReactProvider>
       <div className="app">
-        <header className="header">
-          {/* Conteúdo do cabeçalho */}
-        </header>
+        <Menu /> 
         <div className="main-content">
-          <aside className="menu">
-            <ul>
-              <li><a href="#">Dashboard</a></li>
-              <li><a href="#">Tasks</a></li>
-              <li><a href="#">Settings</a></li>
-            </ul>
-          </aside>
           <main className="tasks-container">
             {loading && <p>Loading...</p>}
             {error && <p className="error-message">{error}</p>}
             {!loading && !error && (
-              <DataTable value={tasks} paginator rows={10} dataKey="id" header={header} footer={footer}>
-                <Column field="title" header="Title" sortable filter filterPlaceholder="Search by title" />
-                <Column field="status" header="Status" sortable filter filterPlaceholder="Search by status" />
-                <Column field="description" header="Description" />
-                <Column field="dueDate" header="Due Date" sortable />
-                <Column body={actionTemplate} headerClassName="w-10rem" />
-              </DataTable>
+             <DataTable value={tasks} paginator rows={10} dataKey="id" header={header} footer={footer}>
+             <Column field="id" header="ID" />
+             <Column field="title" header="Title" sortable filter filterPlaceholder="Search by title" />
+             <Column field="status" header="Status" sortable filter filterPlaceholder="Search by status" />
+             <Column field="description" header="Description" />
+             <Column body={actionTemplate} header="Actions" />  
+           </DataTable>
+            )}
+            {selectedTask && (
+              <Modal isOpen={isModalOpen} onClose={closeModal} task={selectedTask} />
+            )}
+            {currentTaskId && (
+              <EditTaskModal
+                taskId={currentTaskId}
+                visible={isEditModalVisible}
+                onHide={handleCloseModal}
+              />
             )}
           </main>
         </div>

@@ -1,15 +1,16 @@
-// src/routes/AppRouter.tsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home/home'; // Ajuste o caminho conforme necessário
-import EditTask from '../pages/Edita/edit';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CreateTask from '../pages/Novastask/newtask';
+import Home from '../pages/Home/home'; // Exemplo de uma página inicial
+import EditTask from '../pages/EditTask/EditTask';
 
-const AppRouter: React.FC = () => (
-  <Routes>
-    <Route path="/Home" element={<Home />} />
-    <Route path="/edit/:id" element={<EditTask />} />
-    {/* Adicione outras rotas conforme necessário */}
-  </Routes>
+const AppRouter = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/edit-task/:taskId" element={<EditTask />} />
+    </Routes>
+  </BrowserRouter>
 );
 
-export default AppRouter; // Certifique-se de que está exportando AppRouter como exportação padrão
+export default AppRouter;

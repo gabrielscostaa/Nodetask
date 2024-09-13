@@ -1,15 +1,33 @@
+// src/components/Menu/menu.tsx
 import React from 'react';
-import './menu.css';
+import { Menubar } from 'primereact/menubar';
+import { useNavigate } from 'react-router-dom';
 
 const Menu: React.FC = () => {
+  const navigate = useNavigate();
+
+  const items = [
+    {
+      label: 'Tasks',
+      icon: 'pi pi-fw pi-list',
+      command: () => navigate('/home')  // Navegação para "/home"
+    },
+    {
+      label: 'Criar',
+      icon: 'pi pi-fw pi-pencil',
+      command: () => navigate('/create-task')
+    },
+    {
+      label: 'Sobre',
+      icon: 'pi pi-fw pi-info-circle',
+      command: () => navigate('/about')  
+    }
+  ];
+
   return (
-    <nav className="menu">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#Visualizar">Visualizar</a></li>
-        <li><a href="#Adicionar">Adicionar Tarefa</a></li>
-      </ul>
-    </nav>
+    <div className="menu">
+      <Menubar model={items} />
+    </div>
   );
 };
 

@@ -15,7 +15,7 @@ const getAll = async () => {
 const createTask = async (task) => {
     try {
         const { title, status = 'pendente', due_date = null, description = '' } = task;
-        const query = 'INSERT INTO tasks (title, status, created_at, due_date, description) VALUES (?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO tasks (title, status, created_at, due_date, description,subtask) VALUES (?, ?, ?, ?, ?, ?,?)';
         const [result] = await connection.execute(query, [title, status, new Date(), due_date, description]);
         return { insertId: result.insertId };
     } catch (error) {
