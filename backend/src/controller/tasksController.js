@@ -71,18 +71,6 @@ exports.editById = async (req, res) => {
     }
 };
 
-const Subtask = require('../models/subtask');
-
-exports.createSubtask = async (req, res) => {
-    try {
-        const { taskId, title, completed } = req.body;
-        const subtask = await Subtask.create({ taskId, title, completed });
-        res.status(201).json(subtask);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
-
 exports.updateSubtask = async (req, res) => {
     try {
         const { id } = req.params;
